@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <style>
+
+        table {
+            border-collapse: collapse;
+            border-width: 2px;
+            border-color: black;
+            border-style: solid;
+        }
+
+        th {
+            background-color: cadetblue;
+            border-width: 2px;
+            border-color: black;
+            border-style: solid;
+            text-align:center;
+        }
+
+        td {
+            border-width: 2px;
+            border-color: black;
+            border-style: solid
+        }
+    </style>
+   <meta charset="UTF-8">
+    <title>Pregled transakcija</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <link href="../static/content/jumbotron.css" rel="stylesheet">
+    <link href="../static/content/register.css" rel="stylesheet">
+    <script src="../static/scripts/jquery-1.11.2.js"></script>
+    <script src="../static/scripts/register.js"></script>
+</head>
+<body>
+
+    <div class = "jumbotron">
+
+
+    <h2> Pregled svih transakcija:  {{transakcije["primalac"]}} </h2>
+
+        <p style="color:red"> {{errormsg}} </p>
+
+        <table>
+            <tr>
+                <th> Primalac </th>
+                <th> Kolicina </th>
+                <th> Stanje </th>
+                <th> Valuta </th>
+            </tr>
+
+              {% for t in transakcije %}
+            <tr>
+
+                <td> {{t["primalac"]}} </td>
+                <td> {{t["kolicina"]}} </td>
+                <td> {{t["stanje"]}}</td>
+                <td> {{t["valuta"]}}</td>
+
+                </tr>
+            {% endfor %}
+
+
+
+        </table>
+
+        <form class = "form-signin" action="/FilterTransakcije" method="post">
+            <label for="inputEmail" class = "sr-only"> Email </label>
+            <input type = "email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Filter Email Primaoca" required autofocus> </br>
+
+            <input type="submit" value="Filter">
+        </form>
+
+        <form class = "form-signin" action="/PrikaziPregledTransakcija" method="post">
+            <input type="submit" value="Reset">
+        </form>
+
+        <form class = "form-signin" action="/SortirajTransakcije" method="post">
+            <select id="sortType" name="sortType">
+                        <option value="primalac_asc">Primalac ASC</option>
+                        <option value="primalac_desc">Primalac DESC</option>
+                        <option value="kolicina_asc">Kolicina ASC</option>
+                        <option value="kolicina_desc">Kolicina DESC</option>
+                        <option value="stanje_asc">Stanje ASC</option>
+                        <option value="stanje_desc">Stanje DESC</option>
+            </select>
+
+            <input type="submit" value="Sort">
+        </form>
+
+    <a href="/PrikaziIndex">Povratak na pocetnu stranicu.</a>
+</div>
+
+</body>
+</html>
+
